@@ -67,4 +67,5 @@ the last record of a product from assignment.
 
 Tasks:
 a) Create a stored procedure which returns "Chain of Custody" in a correct order, "c" is a first record, next "m" records are sorted by ts.
+
 b) There are broken product records where current_owner_id is not correct. Please create a SQL db patch that fixes the issue.
