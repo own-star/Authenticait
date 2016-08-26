@@ -1,3 +1,5 @@
+%% Find the sum of all the multiples of 3 or 5 below N.
+
 -module(sum_3_5).
 -export([find_sum/1]).
 
