@@ -1,0 +1,10 @@
+[{release,"xml","1","7.3.1.1",
+          [{kernel,"4.2","./lib/kernel-4.2"},
+           {stdlib,"2.8","./lib/stdlib-2.8"},
+           {ranch,"1.1.0","./lib/ranch-1.1.0"},
+           {crypto,"3.6.3","./lib/crypto-3.6.3"},
+           {cowlib,"1.0.1","./lib/cowlib-1.0.1"},
+           {cowboy,"1.0.1","./lib/cowboy-1.0.1"},
+           {xml,"1","./lib/xml-1"},
+           {runtime_tools,"1.9.3","./lib/runtime_tools-1.9.3"}],
+          permanent}].

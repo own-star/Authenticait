@@ -1,0 +1,10 @@
+{release,{"xml","1"},
+         {erts,"7.3.1.1"},
+         [{kernel,"4.2"},
+          {stdlib,"2.8"},
+          {ranch,"1.1.0"},
+          {crypto,"3.6.3"},
+          {cowlib,"1.0.1"},
+          {cowboy,"1.0.1"},
+          {xml,"1"},
+          {runtime_tools,"1.9.3"}]}. 
