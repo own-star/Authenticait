@@ -17,10 +17,7 @@ handle(Req, State) ->
 
 capture(<<"POST">>, true, Req) ->
 	{_Args, Req1} = cowboy_req:qs_vals(Req),
-	io:format("Req1: ~p~n",[Req1]),
 	{ok, Bin, Req2} = cowboy_req:body(Req1),
-	io:format("Req2: ~p~n",[Req2]),
-	io:format("Data: ~p~n",[Bin]),
 	{{{A,B,C,D},Port},_} = cowboy_req:peer(Req2),
 	Peer = integer_to_list(A) ++ "." ++ integer_to_list(B) ++ "." ++ integer_to_list(C) ++ "." ++ integer_to_list(D) ++ "." ++ integer_to_list(Port) ++ ".",
 	STime = erlang:system_time(),
