@@ -1,6 +1,5 @@
 %% Feel free to use, reuse and abuse the code in this file.
 
-%% @doc Hello world handler.
 -module(toppage_handler).
 
 -export([init/3]).
@@ -18,13 +17,16 @@ handle(Req, State) ->
 
 capture(<<"POST">>, true, Req) ->
 	{_Args, Req1} = cowboy_req:qs_vals(Req),
-%	io:format("Req1: ~p~n",[Req1]),
+	io:format("Req1: ~p~n",[Req1]),
 	{ok, Bin, Req2} = cowboy_req:body(Req1),
-%	io:format("Req2: ~p~n",[Req2]),
-%	io:format("Data: ~p~n",[Bin]),
-	Path="/tmp/output2.csv",
+	io:format("Req2: ~p~n",[Req2]),
+	io:format("Data: ~p~n",[Bin]),
+	{{{A,B,C,D},Port},_} = cowboy_req:peer(Req2),
+	Peer = integer_to_list(A) ++ "." ++ integer_to_list(B) ++ "." ++ integer_to_list(C) ++ "." ++ integer_to_list(D) ++ "." ++ integer_to_list(Port) ++ ".",
+	STime = erlang:system_time(),
+	TS=integer_to_list(STime),
+	Path="/tmp/" ++ Peer ++ TS ++ ".csv",
 	file:write_file(Path,<<"GTIN,NAME,DESC,COMPANY\n">>),
-%	Action = proplists:get_value(<<"action">>, Val),
 	parse_bin(Bin, Path, [],Req2);
 capture(<<"POST">>, false, Req) ->
 	cowboy_req:reply(400, [], <<"Missing body.">>, Req);
@@ -33,12 +35,11 @@ capture(_, _, Req) ->
 	cowboy_req:reply(405, Req).
 
 parse_bin(<<>>,Path,Acc,Req) ->
-%	io:format("Data: ~p~n",[Acc]),
 	write_data(Acc,Path),
 	BPath=list_to_binary(Path),
 	cowboy_req:reply(200, [
 		{<<"content-type">>, <<"text/plain; charset=utf-8">>}
-	], <<"Written to file",BPath/binary>>, Req);
+	], <<"Data has been written to file",BPath/binary>>, Req);
 parse_bin(<<34,"PROD_COVER_GTIN",34," value=",34,Rest/binary>>,Path,Acc,Req) ->
 	parse_bin(Rest,Path,[{get_value(Rest,<<>>),<<>>,<<>>,<<>>}|Acc],Req);
 parse_bin(<<34,"PROD_NAME",34," value=",34,Rest/binary>>,Path,[{GTIN,_,Desc,Owner}|Acc],Req) ->
@@ -52,9 +53,6 @@ parse_bin(<<_X,Rest/binary>>,Path,Acc,Req) ->
 
 
 get_value(<<34,_Rest/binary>>,Val) ->
-%	io:format("Value: ~p~n",[Val]),
-%	file:write_file(Path,<<Val/binary,",">>,[append]),
-%	parse_bin(Rest,Path);
 	Val;
 get_value(<<X,Rest/binary>>,Val) ->
 	get_value(Rest,<<Val/binary,X>>).
@@ -68,6 +66,7 @@ write_data([{GTIN,Name,Desc,Owner}|Rest],Path) ->
 	write_data(Rest,Path);
 write_data([],_Path) ->
 	ok.
+
 
 terminate(_Reason, _Req, _State) ->
 	ok.
