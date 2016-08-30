@@ -1,0 +1,1 @@
+update product b set current_owner_id = (select participant_id from assignment a where a.product_id=b.id and action='m' order by ts desc limit 1);
