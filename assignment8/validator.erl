@@ -9,7 +9,7 @@
 -export([validate/1,get_sum/1]).
 
 validate({gtin, Value}) ->
-	check_size(iolist_to_binary(Value));
+	check_size(check_iolist(Value,<<>>));
 validate(_) ->
 	{error, "Invalid argument"}.
 
@@ -46,4 +46,12 @@ get_sum(<<X,Rest/binary>>,Sum,Count) ->
 	end.
 
 get_sum(GTIN13) ->
-	get_sum(iolist_to_binary(GTIN13),0,1).
+	get_sum(check_iolist(GTIN13,<<>>),0,1).
+
+
+check_iolist(<<>>,Acc) ->
+	Acc;
+check_iolist(<<X,Rest/binary>>,Acc) when X >= 48 ->
+	check_iolist(Rest,<<Acc/binary,(X - 48)>>);
+check_iolist(<<X,Rest/binary>>,Acc)  ->
+	check_iolist(Rest,<<Acc/binary,X>>).
