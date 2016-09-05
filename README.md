@@ -1,7 +1,7 @@
 # Authenticait
 Software Erlang Engineer Test Assignment
 
- 1. If we list all the natural numbers below 10 that are multiples of 3 or 5, we get 3, 5, 6 and 9.
+ 1.If we list all the natural numbers below 10 that are multiples of 3 or 5, we get 3, 5, 6 and 9.
 The sum of these multiples is 23.
 
 Find the sum of all the multiples of 3 or 5 below 1000.
@@ -15,18 +15,18 @@ By starting with 1 and 2, the first 10 terms will be:
 By considering the terms in the Fibonacci sequence whose values do not exceed four million, find the sum of the even-valued terms.
 
 
- 3. The prime factors of 13195 are 5, 7, 13 and 29.
+ 3.The prime factors of 13195 are 5, 7, 13 and 29.
 
 What is the largest prime factor of the number 600851475143 ?
 
 
- 4. A palindromic number reads the same both ways. The largest palindrome made from the
+ 4.A palindromic number reads the same both ways. The largest palindrome made from the
 product of two 2-digit numbers is 9009 = 91 * 99.
 
 Find the largest palindrome made from the product of two 3-digit numbers.
 
 
- 5. 2520 is the smallest number that can be divided by each of the numbers from 1 to 10
+ 5.2520 is the smallest number that can be divided by each of the numbers from 1 to 10
 without any remainder.
 
 What is the smallest positive number that is evenly divisible by all of the numbers from 1 to
@@ -39,6 +39,7 @@ GTIN,NAME,DESC,COMPANY.
 
 NOTE: if PROD_DESC, BRAND_OWNER_NAME are missed in an input request then empty
 values will be saved to the CSV.
+
 
  7.Implement the task as an Erlang/OTP application each sequence is calculated by servers independently, a supervisor using an application's setting "maximum number of workers" starts servers, collects results and finds the longest chain.
 The following iterative sequence is defined for the set of positive integers:
@@ -58,9 +59,11 @@ Which starting number, under one million, produces the longest chain?
 
 NOTE: Once the chain starts the terms are allowed to go above one million.
 
+
  8.Implement a GTIN-14 validator as an Erlang module function validate({gtin, Value}) -> ok |
 {error, Error}, Value is iolist() or binary(). The related specification can be found
 here: http://www.gs1.org/barcodes-epcrfid-id-keys/gs1-general-specifications
+
 
 9.This is SQL assignment. There are 2 tables:
  assignment (id, product_id, participant_id, ts, action)
