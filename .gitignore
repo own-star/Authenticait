@@ -1,0 +1,6 @@
+assignment6/xml/ebin
+assignment6/xml/deps
+assignment6/xml/_rel
+assignment7/collatz/_rel
+assignment7/collatz/ebin
+*.beam

@@ -4,7 +4,7 @@
 	{description, "Collatz problem"},
 	{vsn, "1"},
 	{modules, []},
-	{registered, [collatz_sup]},
+	{registered, [collatz_sup, collatz_handler]},
 	{applications, [
 		kernel,
 		stdlib
