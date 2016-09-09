@@ -13,14 +13,14 @@ stop() ->
 	gen_server:call(?MODULE, stop).
 
 
-collatz(N) -> gen_server:cast(?MODULE, collatz_mod:calc(N)).
+collatz(N) -> gen_server:cast(?MODULE, N).
 
 
 init(Max) ->
 	io:format("init: Max: ~p here~n",[Max]),
 	timer:start(),
-	{ok, _TRef} = timer:apply_after(1000, lists,map,[fun(X) -> collatz_sup:start_one(X) end, lists:reverse(lists:seq(1,Max+1))]),
-	{ok, {Max, 0, {0,0}}}.
+	{ok, _TRef} = timer:apply_after(1000, lists,map,[fun(X) -> collatz_sup:start_one(X) end, lists:reverse(lists:seq(1,Max))]),
+	{ok, {Max-1, 0, {0,0}}}.
 
 %handle_call(_, _From, {X, X, Max} = State) ->
 %	io:format("Max: ~p~n", [Max]),
@@ -40,7 +40,8 @@ handle_call(stop, _From, State) ->
 handle_cast(_,  {X, X, Max} = State) ->
 	io:format("Max: ~p~n", [Max]),
 	{stop, normal, State};
-handle_cast({New, Count}, {X, Acc, {Old, Max}}) ->
+handle_cast(N, {X, Acc, {Old, Max}}) ->
+		{New, Count} = collatz_mod:calc(N),
 		State = 
 	   		case Count > Max of
 				true -> {X, Acc + 1, {New, Count}};
