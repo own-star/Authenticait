@@ -2,15 +2,15 @@
 -behaviour(supervisor).
 
 -export([start_link/0]).
--export([init/1, start_one/1]).
+-export([init/1]).
 
 start_link() ->
 	supervisor:start_link({local, ?MODULE}, ?MODULE, []).
 
 init([]) ->
-Procs = [{simple, {collatz_handler, collatz, []}, permanent, 5000, worker,[collatz_handler]}],
-	{ok, {{simple_one_for_one, 0, 1}, Procs}}.
-
-start_one(X) ->
-			supervisor:start_child(?MODULE, [X]).
+	Procs = [{start, {collatz_handler, start, []}, transient, 5000, worker,[collatz_handler]}],
+	{ok, {{one_for_one, 1, 1}, Procs}};
+init(X) ->
+	Specs = {collatz, {collatz_handler, collatz, [X]}, transient, 5000, worker,[collatz_handler]},
+			supervisor:start_child(?MODULE, Specs).
 

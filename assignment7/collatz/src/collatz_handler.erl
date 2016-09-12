@@ -13,13 +13,14 @@ stop() ->
 	gen_server:call(?MODULE, stop).
 
 
-collatz(N) -> gen_server:cast(?MODULE, N).
+collatz(N) -> 
+	gen_server:cast(?MODULE, N).
 
 
 init(Max) ->
-	io:format("init: Max: ~p here~n",[Max]),
+	io:format("Handler init: Max: ~p here~n",[Max]),
 	timer:start(),
-	{ok, _TRef} = timer:apply_after(1000, lists,map,[fun(X) -> collatz_sup:start_one(X) end, lists:reverse(lists:seq(1,Max))]),
+	{ok, _TRef} = timer:apply_after(1000, lists,map,[fun(X) -> collatz_sup:init(X) end, lists:reverse(lists:seq(1,Max))]),
 	{ok, {Max-1, 0, {0,0}}}.
 
 %handle_call(_, _From, {X, X, Max} = State) ->
